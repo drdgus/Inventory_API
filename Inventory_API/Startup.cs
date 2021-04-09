@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Inventory_API.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace Inventory_API
 {
@@ -25,6 +27,8 @@ namespace Inventory_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string con = "Server=82.202.172.211;User Id=u105604_admin;Password=yCx6e$PKVmRT;Database=u105604_audit";
+            services.AddDbContext<InventoryDbContext>(options => options.UseNpgsql(con, builder => builder.SetPostgresVersion(new System.Version(9, 2))));
             services.AddControllers();
         }
 

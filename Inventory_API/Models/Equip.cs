@@ -10,11 +10,11 @@ namespace Inventory_API.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string InvNum { get; set; }
-        public int OrgId { get; set; }
-        public int RoomId { get; set; }
-        public int TypeId { get; set; }
-        public int StatusId { get; set; }
-        public int AccountabilityId { get; set; }
+        public Org Org { get; set; }
+        public Room Room { get; set; }
+        public Type Type { get; set; }
+        public Status Status { get; set; }
+        public Accountability Accountability { get; set; }
         public string Note { get; set; }
         public int Count { get; set; }
     }
