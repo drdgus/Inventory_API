@@ -1,5 +1,6 @@
 ﻿using Inventory_API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Inventory_API.DAL
 {
@@ -11,11 +12,23 @@ namespace Inventory_API.DAL
         public Microsoft.EntityFrameworkCore.DbSet<Status> Statuses { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Type> Types { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Accountability> Accountabilities { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<History> History { get; set; }
 
-        public InventoryDbContext(DbContextOptions<InventoryDbContext> options)
+        private ILogger<InventoryDbContext> _logger;
+
+        public InventoryDbContext(ILogger<InventoryDbContext> logger, DbContextOptions<InventoryDbContext> options)
             : base(options)
         {
+            _logger = logger;
             Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.LogTo(log => _logger.LogInformation(log));
     }
 }
