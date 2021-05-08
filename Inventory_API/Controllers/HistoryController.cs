@@ -21,7 +21,6 @@ namespace Inventory_API.Controllers
         {
             _logger = logger;
             _context = context;
-
         }
 
         [HttpGet]
@@ -29,7 +28,8 @@ namespace Inventory_API.Controllers
         {
             if (id is null) BadRequest();
 
-            var history = _context.History.OrderByDescending(h => h.Id)
+            var history = _context.History
+                .OrderByDescending(h => h.Id)
                 .Where(h => h.itemId == id && h.Code == History.OperationCode.Edited)
                 .Select(h => new
                 {

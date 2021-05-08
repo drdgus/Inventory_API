@@ -34,7 +34,7 @@ namespace Inventory_API.Controllers
         {
             try
             {
-                _context.History.Add(new History
+                await _context.History.AddAsync(new History
                 {
                     itemId = equipId,
                     Date = DateTime.Now,
@@ -46,11 +46,11 @@ namespace Inventory_API.Controllers
 
                 _context.Equips.Single(e => e.Id == equipId).RoomId = roomId;
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {
-                _logger.LogError(roomId + "       " + equipId + "\n" + e.Message);
+                _logger.LogError(e.ToString());
             }
 
             return Ok();

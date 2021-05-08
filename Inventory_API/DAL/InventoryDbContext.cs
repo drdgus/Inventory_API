@@ -26,6 +26,12 @@ namespace Inventory_API.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Equip>().HasIndex(e => e.InvNum).IsUnique();
+            //modelBuilder.Entity<Room>().HasIndex(r => r.Name).IsUnique();
+            //modelBuilder.Entity<Room>().HasIndex(r => r.MOL).IsUnique();
+            //modelBuilder.Entity<Type>().HasIndex(r => r.Name).IsUnique();
+            //modelBuilder.Entity<Status>().HasIndex(r => r.Name).IsUnique();
+            //modelBuilder.Entity<Accountability>().HasIndex(r => r.Name).IsUnique();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
