@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace Inventory_API.DAL
 {
@@ -18,6 +20,24 @@ namespace Inventory_API.DAL
         private void Init()
         {
             if (_context.Equips.Any()) return;
+
+            _context.Users.Add(new User
+            {
+                Username = "Android",
+                Password = new Password
+                {
+                    EncryptedPassword = BCrypt.Net.BCrypt.HashPassword("Android")
+                }
+            });
+            _context.Users.Add(new User
+            {
+                Username = "Андроид",
+                Password = new Password
+                {
+                    EncryptedPassword = BCrypt.Net.BCrypt.HashPassword("123123")
+                }
+            });
+
             _context.Equips.Add(new Equip
             {
                 Name = "samsung scx-4100",
@@ -43,7 +63,7 @@ namespace Inventory_API.DAL
                 {
                     Name = "Основной баланс"
                 },
-                Note = "Ut aut doloremque nihil provident est et numquam. Quia sit earum eos voluptatem fugiat nulla earum est. Odit natus qui veritatis aut eaque consectetur voluptatem. Odit rerum qui",
+                Note = "",
                 Count = 1,
                 History = new List<History>
                 {
@@ -96,10 +116,11 @@ namespace Inventory_API.DAL
                         Code = History.OperationCode.Edited,
                         ChangedProperty = History.Property.Note,
                         OldValue = "",
-                        NewValue = "Ut aut doloremque nihil provident est et numquam. Quia sit earum eos voluptatem fugiat nulla earum est. Odit natus qui veritatis aut eaque consectetur voluptatem. Odit rerum qui"
+                        NewValue = "Новая заметка"
                     },
                 }
             });
+
 
             _context.Rooms.AddRange(new List<Room>
             {
@@ -125,6 +146,97 @@ namespace Inventory_API.DAL
                     MOL = "МОЛ ФИО6"
                 },
             });
+            _context.Equips.AddRange(new Equip[]
+            {
+                new Equip
+                {
+                    RegistrationDate = DateTime.Now.AddDays(-10),
+                    Name = "Lenovo idea pad 330",
+                    InvNum = "T-0000001",
+                    Org = _context.Orgs.Local.First(),
+                    Room = _context.Rooms.Local.Skip(1).First(),
+                    Type = new Models.Type
+                    {
+                        Name = "Ноутбук"
+                    },
+                    Status = _context.Statuses.Local.First(),
+                    Accountability = _context.Accountabilities.Local.First(),
+                    History = new List<History>
+                    {
+                        new History
+                        {
+                            itemId = 2,
+                            Date = DateTime.Now.AddDays(-10),
+                            Code = History.OperationCode.Created,
+                            ChangedProperty = History.Property.None,
+                            OldValue = "",
+                            NewValue = ""
+                        }
+                    },
+                    Note = "",
+                    Count = 1,
+                    IsDeleted = false
+                },
+                new Equip
+                {
+                    RegistrationDate = DateTime.Now.AddDays(-8),
+                    Name = "Стул",
+                    InvNum = "T-0000001",
+                    Org = _context.Orgs.Local.First(),
+                    Room = _context.Rooms.Local.Skip(1).First(),
+                    Type = new Models.Type
+                    {
+                        Name = "Мебель"
+                    },
+                    Status = _context.Statuses.Local.First(),
+                    Accountability = _context.Accountabilities.Local.First(),
+                    History = new List<History>
+                    {
+                        new History
+                        {
+                            itemId = 3,
+                            Date = DateTime.Now.AddDays(-8),
+                            Code = History.OperationCode.Created,
+                            ChangedProperty = History.Property.None,
+                            OldValue = "",
+                            NewValue = ""
+                        }
+                    },
+                    Note = "",
+                    Count = 20,
+                    IsDeleted = false
+                },
+                new Equip
+                {
+                    RegistrationDate = DateTime.Now.AddDays(-8),
+                    Name = "Стол",
+                    InvNum = "T-0000001",
+                    Org = _context.Orgs.Local.First(),
+                    Room = _context.Rooms.Local.Skip(1).First(),
+                    Type = new Models.Type
+                    {
+                        Name = "Мебель"
+                    },
+                    Status = _context.Statuses.Local.First(),
+                    Accountability = _context.Accountabilities.Local.First(),
+                    History = new List<History>
+                    {
+                        new History
+                        {
+                            itemId = 4,
+                            Date = DateTime.Now.AddDays(-8),
+                            Code = History.OperationCode.Created,
+                            ChangedProperty = History.Property.None,
+                            OldValue = "",
+                            NewValue = ""
+                        }
+                    },
+                    Note = "",
+                    Count = 10,
+                    IsDeleted = false
+                }
+            });
+
             _context.SaveChanges();
         }
     }

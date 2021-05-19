@@ -26,13 +26,16 @@ namespace Inventory_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm] int equipId, [FromForm] string note)
+        public async Task<IActionResult> Post([FromForm] int equipId, [FromForm] string? note)
         {
             try
             {
+                if (note is null) note = "";
+
                 var equip = _context.Equips.SingleOrDefault(e => e.Id == equipId);
 
                 if(equip is null) BadRequest($"Имущество с id = {equipId} не найдено.");
+                if (note == equip.Note) return Ok();
 
                 await _context.History.AddAsync(new History
                 {

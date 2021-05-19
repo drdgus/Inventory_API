@@ -22,7 +22,6 @@ namespace Inventory_API.Controllers
         {
             _logger = logger;
             _context = context;
-            new DbInitializer(context);
         }
         
         /// <summary>

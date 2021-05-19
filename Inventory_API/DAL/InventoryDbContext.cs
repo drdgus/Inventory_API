@@ -13,6 +13,8 @@ namespace Inventory_API.DAL
         public Microsoft.EntityFrameworkCore.DbSet<Type> Types { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Accountability> Accountabilities { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<History> History { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<User> Users { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Password> Passwords { get; set; }
 
         private ILogger<InventoryDbContext> _logger;
 
@@ -21,6 +23,7 @@ namespace Inventory_API.DAL
         {
             _logger = logger;
             Database.EnsureCreated();
+            new DbInitializer(this);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
