@@ -70,7 +70,7 @@ namespace Inventory_API.Controllers
                     Name = e.Name,
                     InvNum = e.InvNum,
                     Location = e.Room.Name,
-                    Mol = e.Room.MOL,
+                    Mol = e.MOL,
                     Type = e.Type.Name,
                     Status = e.Status.Name,
                     Accountability = e.Accountability.Name,
