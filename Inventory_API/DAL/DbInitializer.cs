@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Type = Inventory_API.Models.Type;
 
 namespace Inventory_API.DAL
 {
@@ -38,23 +39,63 @@ namespace Inventory_API.DAL
                 }
             });
 
+            _context.Types.AddRange(new List<Type>
+            {
+                new Type(){ Name = "Интерактивная доска"},
+                new Type(){ Name = "Колонки"},
+                new Type(){ Name = "Монитор"},
+                new Type(){ Name = "Компьютерная мышь"},
+                new Type(){ Name = "Клавиатура"}
+            });
+
+            _context.MOLs.AddRange(new List<MOL>
+            {
+                new MOL
+                { 
+                    Id = 1,
+                    FullName = "Баранова Полина Львовна"
+                },
+                new MOL
+                {
+                    Id = 2,
+                    FullName = "Захаров Иван Павлович"
+                },
+                new MOL
+                {
+                    Id = 3,
+                    FullName = "Чернова Ника Дмитриевна"
+                },
+                new MOL
+                {
+                    Id = 4,
+                    FullName = "Андреева Евгения Андреевна"
+                },
+                new MOL
+                {
+                    Id = 5,
+                    FullName = "Кузнецова София Даниэльевна"
+                },
+            });
+
             _context.Equips.Add(new Equip
             {
                 Name = "samsung scx-4100",
-                InvNum = "T-0000001",
+                InvNum = 1,
+                BasePrice = 32500m,
+                BaseInvNum = "",
                 Org = new Org
                 {
                     Name = "МКОУ Таежнинская школа №20"
                 },
                 Room = new Room
                 {
-                    Name = "Каб. 101",
-                    MOL = "Иванов Иван Иванович"
+                    Name = "Каб. 101"
                 },
                 Type = new Models.Type()
                 {
                     Name = "МФУ"
                 },
+                MOL = _context.MOLs.Local.Take(1).Single(),
                 Status = new Status
                 {
                     Name = "На балансе"
@@ -127,23 +168,18 @@ namespace Inventory_API.DAL
                 new()
                 {
                     Name = "Каб. 102",
-                    MOL = "Петров П. П."
                 },new()
                 {
                     Name = "Каб. 103",
-                    MOL = "МОЛ ФИО3"
                 },new()
                 {
                     Name = "Каб. 201",
-                    MOL = "МОЛ ФИО4"
                 },new()
                 {
                     Name = "Каб. 202",
-                    MOL = "МОЛ ФИО5"
                 },new()
                 {
                     Name = "Каб. 301",
-                    MOL = "МОЛ ФИО6"
                 },
             });
             _context.Equips.AddRange(new Equip[]
@@ -152,9 +188,12 @@ namespace Inventory_API.DAL
                 {
                     RegistrationDate = DateTime.Now.AddDays(-10),
                     Name = "Lenovo idea pad 330",
-                    InvNum = "T-0000001",
+                    InvNum = 2,
                     Org = _context.Orgs.Local.First(),
                     Room = _context.Rooms.Local.Skip(1).First(),
+                    MOL = _context.MOLs.Local.Skip(1).Take(1).Single(),
+                    BasePrice = 40000m,
+                    BaseInvNum = "",
                     Type = new Models.Type
                     {
                         Name = "Ноутбук"
@@ -181,9 +220,12 @@ namespace Inventory_API.DAL
                 {
                     RegistrationDate = DateTime.Now.AddDays(-8),
                     Name = "Стул",
-                    InvNum = "T-0000001",
+                    InvNum = 3,
                     Org = _context.Orgs.Local.First(),
                     Room = _context.Rooms.Local.Skip(1).First(),
+                    MOL = _context.MOLs.Local.Skip(2).Take(1).Single(),
+                    BasePrice = 2100m,
+                    BaseInvNum = "",
                     Type = new Models.Type
                     {
                         Name = "Мебель"
@@ -209,13 +251,16 @@ namespace Inventory_API.DAL
                 new Equip
                 {
                     RegistrationDate = DateTime.Now.AddDays(-8),
-                    Name = "Стол",
-                    InvNum = "T-0000001",
+                    Name = "ПК ryzen 5",
+                    InvNum = 4,
                     Org = _context.Orgs.Local.First(),
                     Room = _context.Rooms.Local.Skip(1).First(),
+                    MOL = _context.MOLs.Local.Skip(3).Take(1).Single(),
+                    BasePrice = 3000m,
+                    BaseInvNum = "",
                     Type = new Models.Type
                     {
-                        Name = "Мебель"
+                        Name = "ПК"
                     },
                     Status = _context.Statuses.Local.First(),
                     Accountability = _context.Accountabilities.Local.First(),

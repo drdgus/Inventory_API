@@ -38,9 +38,10 @@ namespace Inventory_API.Controllers
                 {
                     Id = e.Id,
                     Name = e.Name,
-                    InvNum = e.InvNum,
-                    Location = e.Room.Name
-                }).ToList();
+                    InvNum = e.InvNum.ToString("Т-0000000"),
+                    Location = e.Room.Name,
+                    Type = e.Type.Name
+                }).OrderBy(i => i.Id).ToList();
 
                 return Ok(liteEquips);
             }
@@ -63,14 +64,15 @@ namespace Inventory_API.Controllers
                 .Include(e => e.Status)
                 .Include(e => e.Accountability)
                 .Include(e => e.History)
+                .Include(e => e.MOL)
                 .Where(e => e.Id == id)
                 .Select(e => new
                 {
                     Id = e.Id,
                     Name = e.Name,
-                    InvNum = e.InvNum,
+                    InvNum = e.InvNum.ToString("Т-0000000"),
                     Location = e.Room.Name,
-                    Mol = e.MOL,
+                    Mol = e.MOL.ShortFullName,
                     Type = e.Type.Name,
                     Status = e.Status.Name,
                     Accountability = e.Accountability.Name,

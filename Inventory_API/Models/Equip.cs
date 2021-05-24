@@ -11,7 +11,7 @@ namespace Inventory_API.Models
         public int Id { get; set; }
         public DateTime RegistrationDate { get; set; }
         public string Name { get; set; }
-        public string InvNum { get; set; }
+        public int InvNum { get; set; }
         public Org Org { get; set; }
         public int RoomId { get; set; }
         public Room Room { get; set; }
@@ -25,7 +25,7 @@ namespace Inventory_API.Models
         /// <summary>
         /// Материально ответственное лицо.
         /// </summary>
-        public string MOL { get; set; }
+        public MOL MOL { get; set; }
         /// <summary>
         /// Дата выпуска оборудования
         /// </summary>
@@ -39,6 +39,7 @@ namespace Inventory_API.Models
         /// </summary>
         public int DepreciationRate  { get; set; }
         public DepreciationGroups DepreciationGroup  { get; set; }
+        public string BaseInvNum { get; set; }
 
         public enum DepreciationGroups
         {
@@ -49,9 +50,7 @@ namespace Inventory_API.Models
             [StringValue("Пятая группа")] V,
             [StringValue("Шестая группа")] VI,
             [StringValue("Седьмая группа")] VII,
-            [StringValue("Восьмая группа")] VIII,
-            [StringValue("Девятая группа")] IX,
-            [StringValue("Десятая группа")] X,
+            [StringValue("Восьмая группа")] VIII
         }
     }
 }

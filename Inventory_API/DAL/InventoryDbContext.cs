@@ -13,6 +13,7 @@ namespace Inventory_API.DAL
         public Microsoft.EntityFrameworkCore.DbSet<Type> Types { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Accountability> Accountabilities { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<History> History { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<MOL> MOLs { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<User> Users { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Password> Passwords { get; set; }
 
@@ -26,8 +27,10 @@ namespace Inventory_API.DAL
             new DbInitializer(this);
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+        
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<Equip>().HasIndex(e => e.InvNum).IsUnique();
             //modelBuilder.Entity<Room>().HasIndex(r => r.Name).IsUnique();
@@ -37,7 +40,7 @@ namespace Inventory_API.DAL
             //modelBuilder.Entity<Accountability>().HasIndex(r => r.Name).IsUnique();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.LogTo(log => _logger.LogInformation(log));
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //    => optionsBuilder.LogTo(log => _logger.LogInformation(log));
     }
 }

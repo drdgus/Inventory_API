@@ -30,7 +30,7 @@ namespace Inventory_API.Controllers
         /// <param name="roomId">Новое помещение</param>
         /// <returns>При успешном выполнении операции OK, иначе null</returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm]int roomId, [FromForm]int equipId)
+        public async Task<IActionResult> Post([FromForm]int roomId, [FromForm]int equipId, [FromForm]int molId)
         {
             try
             {
@@ -44,7 +44,9 @@ namespace Inventory_API.Controllers
                     NewValue = _context.Rooms.Single(r => r.Id == roomId).Name
                 });
 
-                _context.Equips.Single(e => e.Id == equipId).RoomId = roomId;
+                var equip = _context.Equips.Single(e => e.Id == equipId);
+                equip.RoomId = roomId;
+                equip.MOL = _context.MOLs.AsNoTracking().Single(i => i.Id == molId);
 
                 await _context.SaveChangesAsync();
             }

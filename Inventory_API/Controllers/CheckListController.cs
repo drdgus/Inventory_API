@@ -29,10 +29,10 @@ namespace Inventory_API.Controllers
             {
                 Id = e.Id,
                 Name = e.Name,
-                InvNum = e.InvNum,
+                InvNum = e.InvNum.ToString("Т-0000000"),
                 Type = e.Type.Name,
                 CountAcc = e.Count,
-                Mol = e.Room.MOL
+                Mol = e.MOL
             }).ToList();
 
             return Ok(checkList);
