@@ -16,6 +16,7 @@ namespace Inventory_API.DAL
         public Microsoft.EntityFrameworkCore.DbSet<MOL> MOLs { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<User> Users { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Password> Passwords { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Category> Categories { get; set; }
 
         private ILogger<InventoryDbContext> _logger;
 

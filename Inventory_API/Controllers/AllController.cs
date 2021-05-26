@@ -35,6 +35,7 @@ namespace Inventory_API.Controllers
                     .Include(i => i.Room)
                     .Include(i => i.Org)
                     .ToList(),
+                Categories = _context.Categories.ToList(),
                 Accountabilities = _context.Accountabilities.AsNoTracking().ToList(),
                 History = _context.History.AsNoTracking().ToList(),
                 MOLs = _context.MOLs.AsNoTracking().ToList(),

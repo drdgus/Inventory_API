@@ -9,7 +9,7 @@ namespace Inventory_API.Models
     public class History
     {
         public int Id { get; set; }
-        public int itemId { get; set; }
+        public int EquipId { get; set; }
         public DateTime Date { get; set; }
         public OperationCode Code { get; set; }
         public Property ChangedProperty { get; set; }
