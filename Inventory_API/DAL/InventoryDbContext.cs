@@ -1,4 +1,5 @@
-﻿using Inventory_API.Models;
+﻿using Inventory_API.Entities;
+using Inventory_API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -6,17 +7,21 @@ namespace Inventory_API.DAL
 {
     public class InventoryDbContext :  DbContext
     {
-        public Microsoft.EntityFrameworkCore.DbSet<Equip> Equips { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Org> Orgs { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Room> Rooms { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Status> Statuses { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Type> Types { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Accountability> Accountabilities { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<History> History { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<MOL> MOLs { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<User> Users { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Password> Passwords { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Category> Categories { get; set; }
+        public DbSet<Equip> Equips { get; set; }
+        public DbSet<Org> Orgs { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<Type> Types { get; set; }
+        public DbSet<Accountability> Accountabilities { get; set; }
+        public DbSet<History> History { get; set; }
+        public DbSet<MOL> MOLs { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Password> Passwords { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<UnappliedChange> UnappliedChanges { get; set; }
+        public DbSet<InvDocument> InvDocuments { get; set; }
+        public DbSet<MOLPosition> MolPositions { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
 
         private ILogger<InventoryDbContext> _logger;
 

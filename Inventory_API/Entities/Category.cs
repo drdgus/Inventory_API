@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Inventory_API.Models
 {
-    public class CheckInfo
+    public class Category
     {
-        public DateTime Date { get; set; }
-        public List<CheckEquip> Equip { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Class { get; set; }
     }
 }

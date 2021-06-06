@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Inventory_API.DAL;
 using Inventory_API.Models;
+using Inventory_API.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -39,10 +40,11 @@ namespace Inventory_API.Controllers
 
                 await _context.History.AddAsync(new History
                 {
-                    itemId = equipId,
+                    ObjectId = equipId,
+                    TableCode =InvEnums.Table.Equip,
                     Date = DateTime.Now,
-                    Code = History.OperationCode.Edited,
-                    ChangedProperty = History.Property.Note,
+                    Code = InvEnums.OperationCode.Edited,
+                    ChangedProperty = InvEnums.HistoryProperty.Note,
                     OldValue = equip.Note,
                     NewValue = note
                 }); 

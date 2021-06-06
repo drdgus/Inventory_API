@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Inventory_API.DAL;
+using Inventory_API.Entities;
 using Inventory_API.Models;
+using Inventory_API.Services;
+using Inventory_API.Tools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -15,12 +18,15 @@ namespace Inventory_API.Controllers
     public class RelocateController : ControllerBase
     {
         private readonly ILogger<RelocateController> _logger;
-        private InventoryDbContext _context;
-        
-        public RelocateController(ILogger<RelocateController> logger, InventoryDbContext context)
+        private readonly InventoryDbContext _context;
+        private readonly ChangesHub _changesHub;
+
+
+        public RelocateController(ILogger<RelocateController> logger, InventoryDbContext context, ChangesHub changesHub)
         {
             _logger = logger;
             _context = context;
+            _changesHub = changesHub;
         }
 
         /// <summary>
@@ -34,19 +40,37 @@ namespace Inventory_API.Controllers
         {
             try
             {
+                if (!_context.Equips
+                    .Include(e => e.Room)
+                    .Any(e => e.Id == equipId && e.RoomId == roomId))
+                {
+                    BadRequest("В выбранном помещении нет данного имущества.");
+                }
+
                 await _context.History.AddAsync(new History
                 {
-                    itemId = equipId,
+                    ObjectId = equipId,
+                    TableCode =InvEnums.Table.Equip,
                     Date = DateTime.Now,
-                    Code = History.OperationCode.Edited,
-                    ChangedProperty = History.Property.Room,
+                    Code = InvEnums.OperationCode.Edited,
+                    ChangedProperty = InvEnums.HistoryProperty.Room,
                     OldValue = _context.Equips.Include(e => e.Room).Single(e => e.Id == equipId).Room.Name,
                     NewValue = _context.Rooms.Single(r => r.Id == roomId).Name
                 });
 
+                
+
                 var equip = _context.Equips.Single(e => e.Id == equipId);
                 equip.RoomId = roomId;
                 equip.MOL = _context.MOLs.AsNoTracking().Single(i => i.Id == molId);
+
+                _changesHub.Changes.Add(new UnappliedChange
+                {
+                    CreatedTime = DateTime.Now,
+                    TableCode = InvEnums.Table.Equip,
+                    ChangedObject = new UnappliedGODModel{ Equip = equip },
+                    OperationType = InvEnums.OperationCode.Edited
+                });
 
                 await _context.SaveChangesAsync();
             }

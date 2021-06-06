@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Inventory_API.DAL;
+using Inventory_API.Entities;
 using Inventory_API.Models;
 using Inventory_API.Services;
+using Inventory_API.Tools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inventory_API.Controllers
@@ -18,6 +20,8 @@ namespace Inventory_API.Controllers
     {
         private readonly ILogger<InventoryController> _logger;
         private InventoryDbContext _context;
+     
+
         public InventoryController(ILogger<InventoryController> logger, InventoryDbContext context)
         {
             _logger = logger;
@@ -34,20 +38,20 @@ namespace Inventory_API.Controllers
         {
             if (id is null)
             {
-                var liteEquips = _context.Equips.Select(e => new
+                var liteEquips = _context.Equips.OrderBy(i => i.InvNum).Select(e => new
                 {
                     Id = e.Id,
                     Name = e.Name,
                     InvNum = e.InvNum.ToString("Т-0000000"),
                     Location = e.Room.Name,
                     Type = e.Type.Name
-                }).OrderBy(i => i.Id).ToList();
+                }).ToList();
 
                 return Ok(liteEquips);
             }
 
             var history = _context.History.AsNoTracking()
-                .Where(h => h.Code == History.OperationCode.Edited && h.itemId == id)
+                .Where(h => h.Code == InvEnums.OperationCode.Edited && h.ObjectId == id && h.TableCode ==InvEnums.Table.Equip)
                 .ToList()
                 .OrderByDescending(x => x.Id)
                 .Take(5)
@@ -82,6 +86,22 @@ namespace Inventory_API.Controllers
                 }).Single();
 
             return Ok(customEquip);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Equip equip)
+        {
+            await _context.Equips.AddAsync(equip);
+            return Ok();
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> Patch(Equip equip)
+        {
+            var eq = _context.Equips.Single(i => i.Id == equip.Id);
+            eq = equip;
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

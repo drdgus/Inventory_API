@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using Inventory_API.Entities;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Type = Inventory_API.Models.Type;
 
@@ -37,36 +38,33 @@ namespace Inventory_API.DAL
             });
             _context.Users.Add(new User
             {
-                Username = "Андроид",
+                Username = "PC",
                 Password = new Password
                 {
-                    EncryptedPassword = BCrypt.Net.BCrypt.HashPassword("123123")
+                    EncryptedPassword = BCrypt.Net.BCrypt.HashPassword("3cec0a")
                 }
             });
 
-           
-
             _context.Categories.AddRange(new List<Category>
             {
-                new Category{ Name = "Компьютеры и периферийное оборудование"},
-                new Category{ Name = "Оборудование для измерения, испытаний и навигации"},
-                new Category{ Name = "Изделия текстильные готовые прочие"},
-                new Category{ Name = "Бутылки стеклянные"},
-                new Category{ Name = "Банки стеклянные"},
-                new Category{ Name = "Флаконы стеклянные"},
-                new Category{ Name = "Тара прочая из стекла, кроме ампул"},
-                new Category{ Name = "Посуда стеклянная для лабораторных, гигиенических или фармацевтических целей; ампулы из стекла"},
-                new Category{ Name = "Изделия керамические лабораторного, химического или прочего технического назначения, кроме фарфоровых"},
-                new Category{ Name = "Сейфы и контейнеры упрочненные металлические бронированные или армированные, специально предназначенные для хранения денег и документов"},
-                new Category{ Name = "Часы всех видов"},
-                new Category{ Name = "Приборы оптические и фотографическое оборудование"},
-                new Category{ Name = "Носители информации магнитные и оптические"},
-                new Category{ Name = "Мебель"},
-                new Category{ Name = "Снаряды, инвентарь и оборудование для занятий физкультурой, гимнастикой и атлетикой, занятий в спортзалах, фитнес-центрах"},
-                new Category{ Name = "Снаряды, инвентарь и оборудование прочие для занятий спортом или для игр на открытом воздухе; плавательные бассейны и бассейны для гребли"},
-                new Category{ Name = "Мебель медицинская, включая хирургическую, стоматологическую или ветеринарную, и ее части"},
-                new Category{ Name = "Метлы и щетки"},
-                new Category{ Name = "Приборы, аппаратура и модели, предназначенные для демонстрационных целей"}
+                new Category{ Name = "Компьютеры и периферийное оборудование", Class = "320.26.2"},
+                new Category{ Name = "Оборудование для измерения, испытаний и навигации", Class = "330.26.51"},
+                new Category{ Name = "Изделия текстильные готовые прочие", Class = "330.13.92.2"},
+                new Category{ Name = "Бутылки стеклянные", Class = "330.23.13.11.110"},
+                new Category{ Name = "Банки стеклянные", Class = "330.23.13.11.120"},
+                new Category{ Name = "Тара прочая из стекла, кроме ампул", Class = "330.23.13.11.140"},
+                new Category{ Name = "Посуда стеклянная для лабораторных, гигиенических или фармацевтических целей; ампулы из стекла", Class = "330.23.19.23"},
+                new Category{ Name = "Изделия керамические лабораторного, химического или прочего технического назначения, кроме фарфоровых", Class = "330.23.44.12"},
+                new Category{ Name = "Сейфы и контейнеры упрочненные металлические бронированные или армированные, специально предназначенные для хранения денег и документов", Class = "330.25.99.21.110"},
+                new Category{ Name = "Часы всех видов", Class = "330.26.52"},
+                new Category{ Name = "Приборы оптические и фотографическое оборудование", Class = "330.26.70"},
+                new Category{ Name = "Носители информации магнитные и оптические", Class = "330.26.8"},
+                new Category{ Name = "Мебель", Class = "330.31.01.12"},
+                new Category{ Name = "Снаряды, инвентарь и оборудование для занятий физкультурой, гимнастикой и атлетикой, занятий в спортзалах, фитнес-центрах", Class = "330.32.30.14"},
+                new Category{ Name = "Снаряды, инвентарь и оборудование прочие для занятий спортом или для игр на открытом воздухе; плавательные бассейны и бассейны для гребли", Class = "330.32.30.15"},
+                new Category{ Name = "Мебель медицинская, включая хирургическую, стоматологическую или ветеринарную, и ее части", Class = "330.32.50.30.110"},
+                new Category{ Name = "Метлы и щетки", Class = "	330.32.91.1"},
+                new Category{ Name = "Приборы, аппаратура и модели, предназначенные для демонстрационных целей", Class = "330.32.99.53"}
             });
             _context.SaveChanges();
 
@@ -81,243 +79,33 @@ namespace Inventory_API.DAL
 
             _context.Accountabilities.Add(new Accountability() {Name = "Основной баланс"});
             _context.Accountabilities.Add(new Accountability() {Name = "З/б"});
+
             _context.Statuses.Add(new Status() {Name = "На балансе"});
             _context.Statuses.Add(new Status() {Name = "Списано"});
             _context.Statuses.Add(new Status() {Name = "Ремонт"});
 
-            //_context.MOLs.AddRange(new List<MOL>
-            //{
-            //    new MOL
-            //    { 
-            //        Id = 1,
-            //        FullName = "Баранова Полина Львовна"
-            //    },
-            //    new MOL
-            //    {
-            //        Id = 2,
-            //        FullName = "Захаров Иван Павлович"
-            //    },
-            //    new MOL
-            //    {
-            //        Id = 3,
-            //        FullName = "Чернова Ника Дмитриевна"
-            //    },
-            //    new MOL
-            //    {
-            //        Id = 4,
-            //        FullName = "Андреева Евгения Андреевна"
-            //    },
-            //    new MOL
-            //    {
-            //        Id = 5,
-            //        FullName = "Кузнецова София Даниэльевна"
-            //    },
-            //});
+            _context.MolPositions.Add(new MOLPosition {Name = "Учитель"});
+            _context.MolPositions.Add(new MOLPosition {Name = "Зав. АХЧ"});
+            _context.MolPositions.Add(new MOLPosition {Name = "Директор"});
+            _context.MolPositions.Add(new MOLPosition {Name = "Инженер-программист"});
 
-            //_context.Equips.Add(new Equip
-            //{
-            //    Name = "samsung scx-4100",
-            //    InvNum = 1,
-            //    BasePrice = 32500m,
-            //    BaseInvNum = "",
-            //    Org = new Org
-            //    {
-            //        Name = "МКОУ Таежнинская школа №20"
-            //    },
-            //    Room = new Room
-            //    {
-            //        Name = "Каб. 101"
-            //    },
-            //    Type = new Models.Type()
-            //    {
-            //        Name = "МФУ"
-            //    },
-            //    MOL = _context.MOLs.Local.Take(1).Single(),
-            //    Status = new Status
-            //    {
-            //        Name = "На балансе"
-            //    },
-            //    Accountability = new Accountability
-            //    {
-            //        Name = "Основной баланс"
-            //    },
-            //    Note = "",
-            //    Count = 1,
-            //    History = new List<History>
-            //    {
-            //        new()
-            //        {
-            //            itemId = 1,
-            //            Date = DateTime.Now,
-            //            Code = History.OperationCode.Created,
-            //            ChangedProperty = History.Property.None,
-            //            OldValue = "",
-            //            NewValue = "scx-4100"
-            //        },
-            //        new()
-            //        {
-            //            itemId = 1,
-            //            Date = DateTime.Now,
-            //            Code = History.OperationCode.Edited,
-            //            ChangedProperty = History.Property.Room,
-            //            OldValue = "Каб. 101",
-            //            NewValue = "Каб. 999"
-            //        },
-            //        new()
-            //        {
-            //            itemId = 1,
-            //            Date = DateTime.Now,
-            //            Code = History.OperationCode.Edited,
-            //            ChangedProperty = History.Property.Type,
-            //            OldValue = "МФУ",
-            //            NewValue = "МФУУУУ"
-            //        },new()
-            //        {
-            //            itemId = 1,
-            //            Date = DateTime.Now,
-            //            Code = History.OperationCode.Edited,
-            //            ChangedProperty = History.Property.Status,
-            //            OldValue = "На балансе",
-            //            NewValue = "Списано"
-            //        }, new()
-            //        {
-            //            itemId = 1,
-            //            Date = DateTime.Now,
-            //            Code = History.OperationCode.Edited,
-            //            ChangedProperty = History.Property.Accountability,
-            //            OldValue = "Основной баланс",
-            //            NewValue = "з/б"
-            //        }, new()
-            //        {
-            //            itemId = 1,
-            //            Date = DateTime.Now,
-            //            Code = History.OperationCode.Edited,
-            //            ChangedProperty = History.Property.Note,
-            //            OldValue = "",
-            //            NewValue = "Новая заметка"
-            //        },
-            //    }
-            //});
+            _context.Rooms.Add(new Room
+            {
+                OrgId = 1,
+                Name = "Склад",
+                IsDeleted = false
+            });
 
+            
 
-            //_context.Rooms.AddRange(new List<Room>
-            //{
-            //    new()
-            //    {
-            //        Name = "Каб. 102",
-            //    },new()
-            //    {
-            //        Name = "Каб. 103",
-            //    },new()
-            //    {
-            //        Name = "Каб. 201",
-            //    },new()
-            //    {
-            //        Name = "Каб. 202",
-            //    },new()
-            //    {
-            //        Name = "Каб. 301",
-            //    },
-            //});
-            //_context.Equips.AddRange(new Equip[]
-            //{
-            //    new Equip
-            //    {
-            //        RegistrationDate = DateTime.Now.AddDays(-10),
-            //        Name = "Lenovo idea pad 330",
-            //        InvNum = 2,
-            //        Org = _context.Orgs.Local.First(),
-            //        Room = _context.Rooms.Local.Skip(1).First(),
-            //        MOL = _context.MOLs.Local.Skip(1).Take(1).Single(),
-            //        BasePrice = 40000m,
-            //        BaseInvNum = "",
-            //        Type = new Models.Type
-            //        {
-            //            Name = "Ноутбук"
-            //        },
-            //        Status = _context.Statuses.Local.First(),
-            //        Accountability = _context.Accountabilities.Local.First(),
-            //        History = new List<History>
-            //        {
-            //            new History
-            //            {
-            //                itemId = 2,
-            //                Date = DateTime.Now.AddDays(-10),
-            //                Code = History.OperationCode.Created,
-            //                ChangedProperty = History.Property.None,
-            //                OldValue = "",
-            //                NewValue = ""
-            //            }
-            //        },
-            //        Note = "",
-            //        Count = 1,
-            //        IsDeleted = false
-            //    },
-            //    new Equip
-            //    {
-            //        RegistrationDate = DateTime.Now.AddDays(-8),
-            //        Name = "Стул",
-            //        InvNum = 3,
-            //        Org = _context.Orgs.Local.First(),
-            //        Room = _context.Rooms.Local.Skip(1).First(),
-            //        MOL = _context.MOLs.Local.Skip(2).Take(1).Single(),
-            //        BasePrice = 2100m,
-            //        BaseInvNum = "",
-            //        Type = new Models.Type
-            //        {
-            //            Name = "Мебель"
-            //        },
-            //        Status = _context.Statuses.Local.First(),
-            //        Accountability = _context.Accountabilities.Local.First(),
-            //        History = new List<History>
-            //        {
-            //            new History
-            //            {
-            //                itemId = 3,
-            //                Date = DateTime.Now.AddDays(-8),
-            //                Code = History.OperationCode.Created,
-            //                ChangedProperty = History.Property.None,
-            //                OldValue = "",
-            //                NewValue = ""
-            //            }
-            //        },
-            //        Note = "",
-            //        Count = 20,
-            //        IsDeleted = false
-            //    },
-            //    new Equip
-            //    {
-            //        RegistrationDate = DateTime.Now.AddDays(-8),
-            //        Name = "ПК ryzen 5",
-            //        InvNum = 4,
-            //        Org = _context.Orgs.Local.First(),
-            //        Room = _context.Rooms.Local.Skip(1).First(),
-            //        MOL = _context.MOLs.Local.Skip(3).Take(1).Single(),
-            //        BasePrice = 3000m,
-            //        BaseInvNum = "",
-            //        Type = new Models.Type
-            //        {
-            //            Name = "ПК"
-            //        },
-            //        Status = _context.Statuses.Local.First(),
-            //        Accountability = _context.Accountabilities.Local.First(),
-            //        History = new List<History>
-            //        {
-            //            new History
-            //            {
-            //                itemId = 4,
-            //                Date = DateTime.Now.AddDays(-8),
-            //                Code = History.OperationCode.Created,
-            //                ChangedProperty = History.Property.None,
-            //                OldValue = "",
-            //                NewValue = ""
-            //            }
-            //        },
-            //        Note = "",
-            //        Count = 10,
-            //        IsDeleted = false
-            //    }
-            //});
+            _context.SaveChanges();
+
+            _context.MOLs.Add(new MOL
+            {
+                FullName = "Беляков Алексей Артёмович",
+                PositionId = 2,
+                PersonnelNumber = 54
+            });
 
             _context.SaveChanges();
         }

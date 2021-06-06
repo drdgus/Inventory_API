@@ -22,6 +22,12 @@ namespace Inventory_API.Middleware
 
         public async Task Invoke(HttpContext context, InventoryDbContext _context)
         {
+            if (context.Request.Path.Value.Contains("/ChangesHub"))
+            {
+                await _next.Invoke(context);
+                return;
+            }
+
             string authHeader = context.Request.Headers["Authorization"];
             if (authHeader != null && authHeader.StartsWith("Basic"))
             {
@@ -48,14 +54,14 @@ namespace Inventory_API.Middleware
                 else
                 {
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    context.Response.Headers.Add("WWW-Authenticate", "Basic realm=\"realm\"");
+                    context.Response.Headers.Add("WWW-Authenticate", "Basic realm=\"Authenticate\"");
                     return;
                 }
             }
             else
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                context.Response.Headers.Add("WWW-Authenticate", "Basic realm=\"realm\"");
+                context.Response.Headers.Add("WWW-Authenticate", "Basic realm=\"Authenticate\"");
                 return;
             }
         }

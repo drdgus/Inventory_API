@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Inventory_API.DAL;
 using Inventory_API.Models;
 using Inventory_API.Services;
+using Inventory_API.Tools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inventory_API.v2.Controllers
@@ -24,60 +25,60 @@ namespace Inventory_API.v2.Controllers
             _logger = logger;
             _context = context;
 
-            if (_context.Equips.Count() > 5) return;
-            var org = _context.Orgs.First();
-            var rooms = _context.Rooms.ToList();
-            var equips10K = new List<Equip>();
-            var types = _context.Types.ToList();
-            var status = _context.Statuses.First();
-            var mols = _context.MOLs.ToList();
-            var accountability = _context.Accountabilities.First();
+            //if (_context.Equips.Count() > 5) return;
+            //var org = _context.Orgs.First();
+            //var rooms = _context.Rooms.ToList();
+            //var equips10K = new List<Equip>();
+            //var types = _context.Types.ToList();
+            //var status = _context.Statuses.First();
+            //var mols = _context.MOLs.ToList();
+            //var accountability = _context.Accountabilities.First();
 
-            var rnd = new Random();
-            for (var i = 5; i < 10000; i++)
-            {
-                var date = DateTime.Now.AddDays(rnd.Next(-110, 0));
-                var room = rooms[rnd.Next(rooms.Count)];
+            //var rnd = new Random();
+            //for (var i = 5; i < 10000; i++)
+            //{
+            //    var date = DateTime.Now.AddDays(rnd.Next(-110, 0));
+            //    var room = rooms[rnd.Next(rooms.Count)];
 
-                equips10K.Add(new Equip
-                {
-                    Id = i,
-                    RegistrationDate = date,
-                    Name = $"name{i}",
-                    InvNum = i,
-                    Org = org,
-                    RoomId = room.Id,
-                    Room = room,
-                    Type = types[rnd.Next(types.Count)],
-                    Status = status,
-                    Accountability = accountability,
-                    History = new List<History>()
-                    {
-                        new History
-                        {
-                            itemId = i,
-                            Date = date,
-                            Code = History.OperationCode.Created,
-                            ChangedProperty = History.Property.None,
-                            OldValue = "",
-                            NewValue = ""
-                        }
-                    },
-                    Note = "",
-                    Count = 1,
-                    IsDeleted = false,
-                    MOL = mols[rnd.Next(mols.Count)],
-                    ReleaseDate = default,
-                    BasePrice = rnd.Next(3000, 50000),
-                    DepreciationRate = 5,
-                    DepreciationGroup = Equip.DepreciationGroups.I
-                });
-            }
+            //    equips10K.Add(new Equip
+            //    {
+            //        Id = i,
+            //        RegistrationDate = date,
+            //        Name = $"name{i}",
+            //        InvNum = i,
+            //        RoomId = room.Id,
+            //        Room = room,
+            //        Type = types[rnd.Next(types.Count)],
+            //        Status = status,
+            //        Accountability = accountability,
+            //        History = new List<History>()
+            //        {
+            //            new History
+            //            {
+            //                ObjectId = i,
+            //                TableCode =InvEnums.Table.Equip,
+            //                Date = date,
+            //                Code = InvEnums.OperationCode.Created,
+            //                ChangedProperty = InvEnums.HistoryProperty.None,
+            //                OldValue = "",
+            //                NewValue = ""
+            //            }
+            //        },
+            //        Note = "",
+            //        Count = 1,
+            //        IsDeleted = false,
+            //        MOL = mols[rnd.Next(mols.Count)],
+            //        ReleaseDate = default,
+            //        BasePrice = rnd.Next(3000, 50000),
+            //        DepreciationRate = 5,
+            //        DepreciationGroup = InvEnums.DepreciationGroups.I
+            //    });
+            //}
 
-            _context.Database.BeginTransaction();
-            _context.Equips.AddRange(equips10K);
-            _context.Database.CommitTransaction();
-            _context.SaveChanges();
+            //_context.Database.BeginTransaction();
+            //_context.Equips.AddRange(equips10K);
+            //_context.Database.CommitTransaction();
+            //_context.SaveChanges();
         }
         
         /// <summary>
@@ -90,8 +91,8 @@ namespace Inventory_API.v2.Controllers
         {
             var a = _context.Equips
                 .AsNoTracking()
-                .Include(e => e.Org)
                 .Include(e => e.Room)
+                .Include(e => e.Room.Org)
                 .Include(e => e.Type)
                 .Include(e => e.Status)
                 .Include(e => e.Accountability)

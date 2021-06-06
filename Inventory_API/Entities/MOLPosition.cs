@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Inventory_API.Models
+namespace Inventory_API.Entities
 {
-    public class Category
+    public class MOLPosition
     {
         public int Id { get; set; }
         public string Name { get; set; }

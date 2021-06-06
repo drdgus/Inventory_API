@@ -1,4 +1,5 @@
 ﻿using System;
+using Inventory_API.Entities;
 
 namespace Inventory_API.Models
 {
@@ -6,6 +7,9 @@ namespace Inventory_API.Models
     {
         public int Id { get; set; }
         public string FullName { get; set; }
+        public int PositionId { get; set; }
+        public MOLPosition Position { get; set; }
+        public int PersonnelNumber { get; set; }
 
         public string ShortFullName => ShortingFullName(FullName);
 

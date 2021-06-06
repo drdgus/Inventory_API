@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Inventory_API.Controllers;
 using Inventory_API.DAL;
 using Inventory_API.Middleware;
 using Inventory_API.Services;
@@ -31,6 +32,9 @@ namespace Inventory_API
         public void ConfigureServices(IServiceCollection services)
         {
             string con = "Server=82.202.172.211;User Id=u105604_admin;Password=yCx6e$PKVmRT;Database=u105604_audit";
+            services.AddSignalR();
+            services.AddTransient<ChangesHub>();
+            services.AddTransient<UnappliedChangeController>();
             services.AddDbContext<InventoryDbContext>(options => options.UseNpgsql(con, builder => builder.SetPostgresVersion(new System.Version(9, 2))));
             services.AddControllers();
 
@@ -56,6 +60,7 @@ namespace Inventory_API
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChangesHub>("/ChangesHub");
                 endpoints.MapControllers();
             });
         }

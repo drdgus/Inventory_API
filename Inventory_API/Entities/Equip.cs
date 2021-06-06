@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Inventory_API.Tools;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Inventory_API.Services;
-using Microsoft.EntityFrameworkCore;
+using Inventory_API.Entities;
 
 namespace Inventory_API.Models
 {
@@ -12,8 +12,6 @@ namespace Inventory_API.Models
         public DateTime RegistrationDate { get; set; }
         public string Name { get; set; }
         public int InvNum { get; set; }
-        public int OrgId { get; set; }
-        public Org Org { get; set; }
         public int RoomId { get; set; }
         public Room Room { get; set; }
         public int TypeId { get; set; }
@@ -40,22 +38,15 @@ namespace Inventory_API.Models
         /// </summary>
         public Decimal BasePrice { get; set; }
         /// <summary>
-        /// В процентах
+        /// Амортизационные начисления в процентах.
         /// </summary>
-        public int DepreciationRate  { get; set; }
-        public DepreciationGroups DepreciationGroup  { get; set; }
+        public int DepreciationRate { get; set; }
+        /// <summary>
+        /// Группа амортизационных начислений
+        /// </summary>
+        public InvEnums.DepreciationGroups DepreciationGroup { get; set; }
         public string BaseInvNum { get; set; }
-
-        public enum DepreciationGroups
-        {
-            [StringValue("Первая группа")] I,
-            [StringValue("Вторая группа")] II,
-            [StringValue("Третья группа")] III,
-            [StringValue("Четвертая группа")] IV,
-            [StringValue("Пятая группа")] V,
-            [StringValue("Шестая группа")] VI,
-            [StringValue("Седьмая группа")] VII,
-            [StringValue("Восьмая группа")] VIII
-        }
+        public int ManufacturerId { get; set; }
+        public Manufacturer Manufacturer { get; set; }
     }
 }
