@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -8,20 +9,29 @@ using System.Threading.Tasks;
 using Inventory_API.DAL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Inventory_API.Middleware
 {
     public class AuthMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<AuthMiddleware> _logger;
 
-        public AuthMiddleware(RequestDelegate next)
+        public AuthMiddleware(RequestDelegate next, ILogger<AuthMiddleware> logger)
         {
             this._next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context, InventoryDbContext _context)
         {
+            using (var reader = new StreamReader(context.Request.Body))
+            {
+                var body = await reader.ReadToEndAsync();
+                _logger.LogInformation(body.Replace(",", ",\n"));
+            }
+
             if (context.Request.Path.Value.Contains("/ChangesHub"))
             {
                 await _next.Invoke(context);

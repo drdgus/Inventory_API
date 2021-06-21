@@ -34,7 +34,7 @@ namespace Inventory_API.Controllers
         {
             var history = _context.History
                 .OrderByDescending(h => h.Id)
-                .Where(h => h.ObjectId == id && h.TableCode == InvEnums.Table.Equip && h.Code == InvEnums.OperationCode.Edited)
+                .Where(h => h.ObjectId == id && h.TableCode == InvEnums.Table.Equip)
                 .Select(h => new
                 {
                     Date = h.Date.ToString("dd.MM.yy"),
@@ -46,23 +46,23 @@ namespace Inventory_API.Controllers
             return Ok(history);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get(int id,InvEnums.Table tableCode)
-        {
+        //[HttpGet]
+        //public async Task<IActionResult> Get(int id, InvEnums.Table tableCode)
+        //{
             
 
-            var history = _context.History
-                .OrderByDescending(h => h.Id)
-                .Where(h => h.ObjectId == id && h.TableCode ==InvEnums.Table.Equip && h.Code == InvEnums.OperationCode.Edited)
-                .Select(h => new
-                {
-                    Date = h.Date.ToString("dd.MM.yy"),
-                    ChangedProperty = h.ChangedProperty.GetStringValue(),
-                    OldValue = h.OldValue,
-                    NewValue = h.NewValue
-                }).ToList();
+        //    var history = _context.History
+        //        .OrderByDescending(h => h.Id)
+        //        .Where(h => h.ObjectId == id && h.TableCode ==InvEnums.Table.Equip)
+        //        .Select(h => new
+        //        {
+        //            Date = h.Date.ToString("dd.MM.yy"),
+        //            ChangedProperty = h.ChangedProperty.GetStringValue(),
+        //            OldValue = h.OldValue,
+        //            NewValue = h.NewValue
+        //        }).ToList();
 
-            return Ok(history);
-        }
+        //    return Ok(history);
+        //}
     }
 }

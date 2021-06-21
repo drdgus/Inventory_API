@@ -46,7 +46,8 @@ namespace Inventory_API.Controllers
                 Statuses = _context.Statuses.AsNoTracking().ToListAsync().Result,
                 Manufacturers = _context.Manufacturers.AsNoTracking().ToListAsync().Result,
                 InvDocuments = _context.InvDocuments.AsNoTracking().ToListAsync().Result,
-                MolPositions = _context.MolPositions.AsNoTracking().ToListAsync().Result
+                MolPositions = _context.MolPositions.AsNoTracking().ToListAsync().Result,
+                CheckEquips = _context.CheckEquips.AsNoTracking().ToListAsync().Result
             };
 
             return Ok(allTables);

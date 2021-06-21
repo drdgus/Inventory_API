@@ -62,11 +62,12 @@ namespace Inventory_API.Services
             _context.SaveChanges();
         }
 
-        public void Relocate(int equipId, int newRoomId, int molId)
+        public void InvRelocate(int equipId, int newRoomId, int molId)
         {
             var equip = _context.Equips.Single(i => i.Id == equipId);
             equip.RoomId = newRoomId;
             equip.MOLId = molId;
+            _context.SaveChanges();
         }
 
         public void RemoveType(int selectedItemId)
@@ -118,6 +119,12 @@ namespace Inventory_API.Services
         public void UpdateEquip(Equip equip)
         {
             _context.Equips.Update(equip);
+            _context.SaveChanges();
+        }
+
+        public void Decomission(int equipId)
+        {
+            _context.Equips.Single(i => i.Id == equipId).IsWriteOff = true;
             _context.SaveChanges();
         }
 

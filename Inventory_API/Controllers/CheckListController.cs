@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Inventory_API.DAL;
 using Inventory_API.Entities;
@@ -18,13 +21,11 @@ namespace Inventory_API.Controllers
     {
         private readonly ILogger<CheckListController> _logger;
         private InventoryDbContext _context;
-        private readonly UnappliedChangeController _unappliedChangeController;
 
-        public CheckListController(ILogger<CheckListController> logger, InventoryDbContext context, UnappliedChangeController unappliedChangeController)
+        public CheckListController(ILogger<CheckListController> logger, InventoryDbContext context)
         {
             _logger = logger;
             _context = context;
-            _unappliedChangeController = unappliedChangeController;
         }
 
         [HttpGet]
@@ -46,15 +47,29 @@ namespace Inventory_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CheckEquip[] checkInfo)
+        public async Task<IActionResult> Post()
         {
-            _unappliedChangeController.AddUnappliedChange(new UnappliedChange
-            {
-                CreatedTime = DateTime.Now,
-                TableCode = InvEnums.Table.CheckInfo,
-                ChangedObject = new UnappliedGODModel{ CheckInfo = checkInfo.ToList() },
-                OperationType = InvEnums.OperationCode.Created
-            });
+            //_unappliedChangeController.AddUnappliedChange(new UnappliedChange
+            //{
+            //    CreatedTime = DateTime.Now,
+            //    TableCode = InvEnums.Table.CheckInfo,
+            //    ChangedObject = new UnappliedGODModel{ CheckInfo = checkInfo.ToList() },
+            //    OperationType = InvEnums.OperationCode.Created
+            //});
+
+            //using (var reader = new StreamReader(Request.Body))
+            //{
+            //    var body = await reader.ReadToEndAsync();
+            //    var a = JsonSerializer.Deserialize<CheckEquip[]>(body);
+            //}
+
+
+
+
+            //var check = new List<CheckEquip>();
+
+            //await _context.CheckEquips.AddRangeAsync(check);
+            //await _context.SaveChangesAsync();
 
             return Ok();
         }

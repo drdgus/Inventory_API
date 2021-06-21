@@ -70,11 +70,23 @@ namespace Inventory_API.DAL
 
             _context.Types.AddRange(new List<Type>
             {
-                new Type(){ Name = "Интерактивная доска", CategoryId = _context.Categories.Single(i => i.Name.Contains("Приборы, аппаратура и модели, предназначенные для демонстрационных целей")).Id},
-                new Type(){ Name = "Колонки", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
-                new Type(){ Name = "Монитор", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
-                new Type(){ Name = "Компьютерная мышь", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
-                new Type(){ Name = "Клавиатура", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id}
+                new (){ Name = "Интерактивная доска", CategoryId = _context.Categories.Single(i => i.Name.Contains("Приборы, аппаратура и модели, предназначенные для демонстрационных целей")).Id},
+                new (){ Name = "Колонки", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
+                new (){ Name = "Монитор", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
+                new (){ Name = "Компьютерная мышь", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
+                new(){ Name = "Клавиатура", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
+                
+                new (){ Name = "МФУ", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
+                new (){ Name = "Принтер", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
+                new (){ Name = "Сейф", CategoryId = _context.Categories.Single(i => i.Name.Contains("Сейфы и контейнеры упрочненные металлические бронированные или армированные")).Id},
+                new (){ Name = "Стол", CategoryId = _context.Categories.Single(i => i.Name == "Мебель").Id},
+                new (){ Name = "Стул", CategoryId = _context.Categories.Single(i => i.Name == "Мебель").Id},
+                new (){ Name = "Компьютерный стул", CategoryId = _context.Categories.Single(i => i.Name == "Мебель").Id},
+                new (){ Name = "Учительский стол", CategoryId = _context.Categories.Single(i => i.Name == "Мебель").Id},
+                new (){ Name = "Шкаф", CategoryId = _context.Categories.Single(i => i.Name == "Мебель").Id},
+                new (){ Name = "Ноутбук", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
+                new (){ Name = "Переходник", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
+                new (){ Name = "Провод", CategoryId = _context.Categories.Single(i => i.Name.Contains("Компьютеры и периферийное оборудование")).Id},
             });
 
             _context.Accountabilities.Add(new Accountability() {Name = "Основной баланс"});

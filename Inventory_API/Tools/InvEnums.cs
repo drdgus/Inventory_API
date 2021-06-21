@@ -6,9 +6,13 @@ namespace Inventory_API.Tools
     {
         public enum OperationCode
         {
-            Created = 1,
-            Edited = 2,
-            Deleted = 3
+            Created,
+            Edited,
+            Deleted,
+            Supply,
+            OnBalance,
+            Relocate,
+            WriteOff
         }
 
         public enum Table

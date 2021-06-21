@@ -22,6 +22,7 @@ namespace Inventory_API.DAL
         public DbSet<InvDocument> InvDocuments { get; set; }
         public DbSet<MOLPosition> MolPositions { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<CheckEquip> CheckEquips { get; set; }
 
         private ILogger<InventoryDbContext> _logger;
 

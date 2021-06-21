@@ -51,7 +51,7 @@ namespace Inventory_API.Controllers
             }
 
             var history = _context.History.AsNoTracking()
-                .Where(h => h.Code == InvEnums.OperationCode.Edited && h.ObjectId == id && h.TableCode ==InvEnums.Table.Equip)
+                .Where(h => h.ObjectId == id && h.TableCode ==InvEnums.Table.Equip)
                 .ToList()
                 .OrderByDescending(x => x.Id)
                 .Take(5)
