@@ -19,14 +19,12 @@ namespace Inventory_API.Controllers
     {
         private readonly ILogger<RelocateController> _logger;
         private readonly InventoryDbContext _context;
-        private readonly ChangesHub _changesHub;
 
 
-        public RelocateController(ILogger<RelocateController> logger, InventoryDbContext context, ChangesHub changesHub)
+        public RelocateController(ILogger<RelocateController> logger, InventoryDbContext context)
         {
             _logger = logger;
             _context = context;
-            _changesHub = changesHub;
         }
 
         /// <summary>
@@ -64,13 +62,13 @@ namespace Inventory_API.Controllers
                 equip.RoomId = roomId;
                 equip.MOL = _context.MOLs.AsNoTracking().Single(i => i.Id == molId);
 
-                _changesHub.Changes.Add(new UnappliedChange
-                {
-                    CreatedTime = DateTime.Now,
-                    TableCode = InvEnums.Table.Equip,
-                    ChangedObject = new UnappliedGODModel{ Equip = equip },
-                    OperationType = InvEnums.OperationCode.Edited
-                });
+                //_changesHub.Changes.Add(new UnappliedChange
+                //{
+                //    CreatedTime = DateTime.Now,
+                //    TableCode = InvEnums.Table.Equip,
+                //    ChangedObject = new UnappliedGODModel{ Equip = equip },
+                //    OperationType = InvEnums.OperationCode.Edited
+                //});
 
                 await _context.SaveChangesAsync();
             }

@@ -38,7 +38,7 @@ namespace Inventory_API.Controllers
         {
             if (id is null)
             {
-                var liteEquips = _context.Equips.OrderBy(i => i.InvNum).Select(e => new
+                var liteEquips = _context.Equips.Where(i => i.IsWriteOff == false).OrderBy(i => i.InvNum).Select(e => new
                 {
                     Id = e.Id,
                     Name = e.Name,
@@ -63,7 +63,9 @@ namespace Inventory_API.Controllers
                     NewValue = h.NewValue
                 }).ToList();
 
-            var customEquip = _context.Equips.AsNoTracking()
+            var customEquip = _context.Equips
+                .Where(i => i.IsWriteOff == false)
+                .AsNoTracking()
                 .Include(e => e.Type)
                 .Include(e => e.Status)
                 .Include(e => e.Accountability)

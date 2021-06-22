@@ -32,7 +32,7 @@ namespace Inventory_API.Controllers
         public async Task<IActionResult> Get(int roomId)
         {
             var checkList = _context.Equips
-                .Where(e => e.Room.Id == roomId)
+                .Where(e => e.Room.Id == roomId && e.IsWriteOff == false)
                 .Select(e => new
             {
                 Id = e.Id,
