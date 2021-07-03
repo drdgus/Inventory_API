@@ -26,11 +26,11 @@ namespace Inventory_API.Middleware
 
         public async Task Invoke(HttpContext context, InventoryDbContext _context)
         {
-            using (var reader = new StreamReader(context.Request.Body))
-            {
-                var body = await reader.ReadToEndAsync();
-                _logger.LogInformation(body.Replace(",", ",\n"));
-            }
+            //using (var reader = new StreamReader(context.Request.Body))
+            //{
+            //    var body = await reader.ReadToEndAsync();
+            //    _logger.LogInformation(body.Replace(",", ",\n"));
+            //}
 
             if (context.Request.Path.Value.Contains("/ChangesHub"))
             {

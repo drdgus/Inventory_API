@@ -32,9 +32,9 @@ namespace Inventory_API
         public void ConfigureServices(IServiceCollection services)
         {
             string con = "Server=82.202.172.211;User Id=u105604_admin;Password=yCx6e$PKVmRT;Database=u105604_audit";
-            services.AddSignalR();
             services.AddDbContext<InventoryDbContext>(options => options.UseNpgsql(con, builder => builder.SetPostgresVersion(new System.Version(9, 2))));
             services.AddControllers();
+            services.AddSignalR();
 
         }
 
@@ -59,8 +59,8 @@ namespace Inventory_API
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChangesHub>("/ChangesHub");
                 endpoints.MapControllers();
+                endpoints.MapHub<ChangesHub>("/ChangesHub");
             });
         }
     }
